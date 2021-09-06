@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Xunit;
 
 namespace MyApp.Tests
@@ -6,22 +7,22 @@ namespace MyApp.Tests
     public class UnitTest1
     {
         [Fact]
-        public void isLeapYearTrue_Divisible_by_4()
+        public void IsLeapYearTrue_Divisible_by_4()
         {
             var program = new Program();
             int year1 = 1444;
 
-            var output = program.isLeapYear(year1);
+            var output = program.IsLeapYear(year1);
             Assert.True(output);
         }
 
         [Fact]
-        public void isLeapYearFalse_Divisible_by_4()
+        public void IsLeapYearFalse_Divisible_by_4()
         {
             var notLeapYearProgram = new Program();
             int year2 = 1333;
 
-            var output = notLeapYearProgram.isLeapYear(year2);
+            var output = notLeapYearProgram.IsLeapYear(year2);
             Assert.False(output);
         }
 
@@ -31,7 +32,7 @@ namespace MyApp.Tests
             var notLeapYear100 = new Program();
             var year_divisble_100 = 1700;
 
-            var output = notLeapYear100.isLeapYear(year_divisble_100);
+            var output = notLeapYear100.IsLeapYear(year_divisble_100);
             Assert.False(output);
             
         }
@@ -43,8 +44,58 @@ namespace MyApp.Tests
             var leapYear400 = new Program();
             int year_Divisible_400 = 40_000;
 
-            var output = leapYear400.isLeapYear(year_Divisible_400);
+            var output = leapYear400.IsLeapYear(year_Divisible_400);
             Assert.True(output);
+        }
+
+        [Fact]
+        public void Yay_For_LeapYear()
+        {
+            //Arrange
+            var yayProgram = new Program();
+            int yayYear = 1444;
+
+            //Act
+            var output = false;
+            output = yayProgram.IsLeapYear(yayYear);
+
+            //Assert
+            Assert.True(output);
+        }
+
+        [Fact]
+        public void Yay_For_LeapYear_Console()
+        {
+            //Arrange
+            var writer = new StringWriter();
+            Console.SetOut(writer);
+            var reader = new StringReader("1444");
+            Console.SetIn(reader);
+
+            //Act
+            Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim();
+            
+            //Assert
+            Assert.Equal($"Type in a year:{Environment.NewLine}yay",output);
+        }
+
+        [Fact]
+        public void Nay_For_Leap_Year_Console()
+        {
+            //Arrange
+            var writer = new StringWriter();
+            Console.SetOut(writer);
+            var reader = new StringReader("1700");
+            Console.SetIn(reader);
+
+            //Act
+            Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim();
+
+            //Assert
+            Assert.Equal($"Type in a year:{Environment.NewLine}nay",output);
+
         }
     }
 }

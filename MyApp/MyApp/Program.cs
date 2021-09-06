@@ -13,10 +13,19 @@ namespace MyApp
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("result: ");
+            var program = new Program();
+            Console.WriteLine("Type in a year:");
+            int year = Convert.ToInt32(Console.ReadLine());
+            program.IsLeapYear(year);
+            if(program.leapYear == true)
+            {
+                Console.WriteLine("yay");
+            } else {
+                Console.WriteLine("nay");
+            }
         }
 
-        public bool isLeapYear(int year)
+        public bool IsLeapYear(int year)
     {
         if(year % 4 == 0)
         {
